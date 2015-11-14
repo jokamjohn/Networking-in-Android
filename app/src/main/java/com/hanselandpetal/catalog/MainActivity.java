@@ -2,10 +2,14 @@ package com.hanselandpetal.catalog;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +19,9 @@ import android.widget.Toast;
 import com.hanselandpetal.catalog.model.Flower;
 import com.hanselandpetal.catalog.parsers.FlowerJsonParser;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +30,9 @@ public class MainActivity extends ListActivity {
 
     private ProgressBar pb;
     List<JokamTask> tasks;
-
     List<Flower> flowerList;
+    private static final String PHOTOS_BASE_URL = "http://services.hanselandpetal.com/photos/";
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +130,33 @@ public class MainActivity extends ListActivity {
 
             String results = HttpManager.getData(params[0],"feeduser","feedpassword");
             flowerList = FlowerJsonParser.parseFeed(results);
+
+            if (flowerList != null) {
+                for (Flower flower:flowerList) {
+                    Uri builtUri = Uri.parse(PHOTOS_BASE_URL)
+                            .buildUpon()
+                            .appendPath(flower.getPhoto())
+                            .build();
+                    InputStream imageStream = null;
+                    try {
+                        URL url = new URL(builtUri.toString());
+                        imageStream = (InputStream) url.getContent();
+                        Bitmap image = BitmapFactory.decodeStream(imageStream);
+                        flower.setBitmap(image);
+
+                    } catch (java.io.IOException e) {
+                        e.printStackTrace();
+                    }finally {
+                        try {
+                            assert imageStream != null;
+                            imageStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Log.i(LOG_TAG,"photo url: " + builtUri.toString());
+                }
+            }
             return flowerList;
 
         }

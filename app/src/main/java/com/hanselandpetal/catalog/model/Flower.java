@@ -1,5 +1,7 @@
 package com.hanselandpetal.catalog.model;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by jokamjohn on 11/14/2015.
  */
@@ -10,6 +12,7 @@ public class Flower {
     private String mInstructions;
     private double mPrice;
     private String mPhoto;
+    private Bitmap mBitmap;
 
     public int getProductId() {
         return mProductId;
@@ -57,5 +60,13 @@ public class Flower {
 
     public void setPhoto(String photo) {
         mPhoto = photo;
+    }
+
+    public Bitmap getBitmap() {
+        return mBitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        mBitmap = bitmap;
     }
 }
