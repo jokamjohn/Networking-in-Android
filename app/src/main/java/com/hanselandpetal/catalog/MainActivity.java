@@ -42,7 +42,9 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.action_do_task) {
 			JokamTask task = new JokamTask();
-            task.execute("param1","param 2", "param 3");
+            //Parallel processing of the tasks.
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
+                    "param1", "param 2", "param 3");
 		}
 		return false;
 	}
