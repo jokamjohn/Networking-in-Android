@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 		if (item.getItemId() == R.id.action_do_task) {
             if (isOnline())
             {
-                requestData();
+                requestData("http://services.hanselandpetal.com/feeds/flowers.xml");
             }
             else {
                 Toast.makeText(this,"No network Access",Toast.LENGTH_LONG).show();
@@ -66,11 +66,10 @@ public class MainActivity extends Activity {
     /**
      * Executes the AsyncTask
      */
-    private void requestData() {
+    private void requestData(String uri) {
         JokamTask task = new JokamTask();
         //Parallel processing of the tasks.
-        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
-                "param1", "param 2", "param 3");
+        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, uri);
     }
 
     /**
@@ -119,21 +118,10 @@ public class MainActivity extends Activity {
         }
 
         @Override
-        protected String doInBackground(String... strings) {
-            for (int i = 0; i < strings.length; i++)
-            {
-                //Show progress
-                //We only pass in one value
-                publishProgress("Working with: " + strings[i]);
+        protected String doInBackground(String... params) {
 
-                //Fake a delay before the next statement is executed
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            return "Task completed";
+            return HttpManager.getData(params[0]);
+
         }
 
         //After the task

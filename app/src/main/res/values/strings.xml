@@ -3,7 +3,7 @@
 
     <string name="app_name">Catalog</string>
     <string name="hello_world">Hello world!</string>
-    <string name="do_task">Do task</string>
+    <string name="do_task">Get Data</string>
     <string name="placeholder">Placeholder</string>
 
 </resources>
