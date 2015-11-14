@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:2:1-27:12
+ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:2:1-30:12
 	xmlns:android
 		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:2:11-69
 	package
@@ -23,29 +23,37 @@ ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:7
 		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:8:9-35
 		INJECTED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml
 		INJECTED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:11:22-76
+uses-permission#android.permission.INTERNET
+ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:12:5-67
+	android:name
+		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:12:22-64
 application
-ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:11:5-25:19
+ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:14:5-28:19
 	android:label
-		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:14:9-41
+		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:17:9-41
 	android:allowBackup
-		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:12:9-35
+		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:15:9-35
 	android:icon
-		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:13:9-45
+		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:16:9-45
 	android:theme
-		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:15:9-40
+		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:18:9-40
 activity#com.hanselandpetal.catalog.MainActivity
-ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:16:9-24:20
+ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:19:9-27:20
 	android:label
-		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:18:13-45
+		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:21:13-45
 	android:name
-		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:17:13-67
+		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:20:13-67
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:19:13-23:29
+ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:22:13-26:29
 action#android.intent.action.MAIN
-ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:20:17-69
+ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:23:17-69
 	android:name
-		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:20:25-66
+		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:23:25-66
 category#android.intent.category.LAUNCHER
-ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:22:17-77
+ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:25:17-77
 	android:name
-		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:22:27-74
+		ADDED from E:\AndroidApps\web_service\starter\app\src\main\AndroidManifest.xml:25:27-74
