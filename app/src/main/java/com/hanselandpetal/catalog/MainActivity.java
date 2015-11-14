@@ -10,10 +10,14 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends Activity {
 
 	TextView output;
     private ProgressBar pb;
+    List<JokamTask> tasks;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,9 @@ public class MainActivity extends Activity {
         pb = (ProgressBar) findViewById(R.id.progressBar);
         //Invisible when the app starts
         pb.setVisibility(View.INVISIBLE);
+
+        //Initializing the JokamTasks list
+        tasks = new ArrayList<>();
 
 		
 	}
@@ -60,7 +67,12 @@ public class MainActivity extends Activity {
         protected void onPreExecute() {
             updateDisplay("Before Task");
             //Visible before the task starts
-            pb.setVisibility(View.VISIBLE);
+            if (tasks.size() == 0)
+            {
+                pb.setVisibility(View.VISIBLE);
+            }
+            //add task to the list
+            tasks.add(this);
         }
 
         @Override
@@ -85,8 +97,15 @@ public class MainActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             updateDisplay(s);
+
+            //remove tasks from the list
+            tasks.remove(this);
+
             //Invisible after the task
-            pb.setVisibility(View.INVISIBLE);
+            if (tasks.size() == 0)
+            {
+                pb.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override
