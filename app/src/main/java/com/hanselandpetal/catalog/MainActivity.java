@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.action_do_task) {
 			JokamTask task = new JokamTask();
-            task.execute("param1");
+            task.execute("param1","param 2", "param 3");
 		}
 		return false;
 	}
@@ -53,15 +53,32 @@ public class MainActivity extends Activity {
 
         @Override
         protected String doInBackground(String... strings) {
+            for (int i = 0; i < strings.length; i++)
+            {
+                //Show progress
+                //We only pass in one value
+                publishProgress("Working with: " + strings[i]);
+
+                //Fake a delay before the next statement is executed
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
             return "Task completed";
         }
 
         //After the task
-
-
         @Override
         protected void onPostExecute(String s) {
             updateDisplay(s);
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            //We get only one value from publish progress
+            updateDisplay(values[0]);
         }
     }
 
