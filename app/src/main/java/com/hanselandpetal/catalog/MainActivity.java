@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
 	TextView output;
+    private ProgressBar pb;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,11 @@ public class MainActivity extends Activity {
 //		Initialize the TextView for vertical scrolling
 		output = (TextView) findViewById(R.id.textView);
 		output.setMovementMethod(new ScrollingMovementMethod());
+
+        //Initializing progressbar
+        pb = (ProgressBar) findViewById(R.id.progressBar);
+        //Invisible when the app starts
+        pb.setVisibility(View.INVISIBLE);
 
 		
 	}
@@ -49,6 +57,8 @@ public class MainActivity extends Activity {
         @Override
         protected void onPreExecute() {
             updateDisplay("Before Task");
+            //Visible before the task starts
+            pb.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -73,6 +83,8 @@ public class MainActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             updateDisplay(s);
+            //Invisible after the task
+            pb.setVisibility(View.INVISIBLE);
         }
 
         @Override
