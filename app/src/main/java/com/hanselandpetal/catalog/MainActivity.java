@@ -1,17 +1,15 @@
 package com.hanselandpetal.catalog;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hanselandpetal.catalog.model.Flower;
@@ -20,9 +18,9 @@ import com.hanselandpetal.catalog.parsers.FlowerJsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
 
-	TextView output;
+
     private ProgressBar pb;
     List<JokamTask> tasks;
 
@@ -32,10 +30,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-//		Initialize the TextView for vertical scrolling
-		output = (TextView) findViewById(R.id.textView);
-		output.setMovementMethod(new ScrollingMovementMethod());
 
         //Initializing progressbar
         pb = (ProgressBar) findViewById(R.id.progressBar);
@@ -81,11 +75,9 @@ public class MainActivity extends Activity {
      * Appends message to the textview
      */
 	protected void updateDisplay() {
-        if (flowerList != null){
-            for (Flower flower:flowerList) {
-                output.append(flower.getName() + "\n");
-            }
-        }
+        //Using the adapter
+        FlowerAdapter adapter = new FlowerAdapter(this,R.layout.item_flower,flowerList);
+        setListAdapter(adapter);
 	}
 
     /**
@@ -110,7 +102,7 @@ public class MainActivity extends Activity {
     /**
      * Makes a network request
      */
-    public class JokamTask extends AsyncTask<String,String,String>{
+    public class JokamTask extends AsyncTask<String, String, List<Flower>> {
 
         //Before the task
         @Override
@@ -126,15 +118,17 @@ public class MainActivity extends Activity {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected List<Flower> doInBackground(String... params) {
 
-            return HttpManager.getData(params[0],"feeduser","feedpassword");
+            String results = HttpManager.getData(params[0],"feeduser","feedpassword");
+            flowerList = FlowerJsonParser.parseFeed(results);
+            return flowerList;
 
         }
 
         //After the task
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(List<Flower> result) {
             //remove tasks from the list
             tasks.remove(this);
             //Invisible after the task
@@ -148,9 +142,7 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this,"Can`t connect to web service",Toast.LENGTH_LONG)
                         .show();
             }
-
-            //Passing the raw XML from doInBackground to the XML parser
-            flowerList = FlowerJsonParser.parseFeed(result);
+            //Display list of the data
             updateDisplay();
 
 
