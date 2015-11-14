@@ -7,7 +7,7 @@
     <!-- From: file:/E:/AndroidApps/web_service/starter/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">Catalog</string>
-    <string name="do_task">Do task</string>
+    <string name="do_task">Get Data</string>
     <string name="hello_world">Hello world!</string>
     <string name="placeholder">Placeholder</string>
     <!-- From: file:/E:/AndroidApps/web_service/starter/app/src/main/res/values/styles.xml -->
