@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hanselandpetal.catalog.model.Flower;
-import com.hanselandpetal.catalog.parsers.FlowerXMLParser;
+import com.hanselandpetal.catalog.parsers.FlowerJsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
 		if (item.getItemId() == R.id.action_do_task) {
             if (isOnline())
             {
-                requestData("http://services.hanselandpetal.com/feeds/flowers.xml");
+                requestData("http://services.hanselandpetal.com/feeds/flowers.json");
             }
             else {
                 Toast.makeText(this,"No network Access",Toast.LENGTH_LONG).show();
@@ -136,7 +136,7 @@ public class MainActivity extends Activity {
         @Override
         protected void onPostExecute(String result) {
             //Passing the raw XML from doInBackground to the XML parser
-            flowerList = FlowerXMLParser.parseFeed(result);
+            flowerList = FlowerJsonParser.parseFeed(result);
             
             updateDisplay();
 
