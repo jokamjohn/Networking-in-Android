@@ -59,7 +59,7 @@ public class MainActivity extends Activity {
 		if (item.getItemId() == R.id.action_do_task) {
             if (isOnline())
             {
-                requestData("http://services.hanselandpetal.com/feeds/flowers.json");
+                requestData("http://services.hanselandpetal.com/secure/flowers.json");
             }
             else {
                 Toast.makeText(this,"No network Access",Toast.LENGTH_LONG).show();
@@ -128,26 +128,32 @@ public class MainActivity extends Activity {
         @Override
         protected String doInBackground(String... params) {
 
-            return HttpManager.getData(params[0]);
+            return HttpManager.getData(params[0],"feeduser","feedpassword");
 
         }
 
         //After the task
         @Override
         protected void onPostExecute(String result) {
-            //Passing the raw XML from doInBackground to the XML parser
-            flowerList = FlowerJsonParser.parseFeed(result);
-            
-            updateDisplay();
-
             //remove tasks from the list
             tasks.remove(this);
-
             //Invisible after the task
             if (tasks.size() == 0)
             {
                 pb.setVisibility(View.INVISIBLE);
             }
+
+            if (result == null)
+            {
+                Toast.makeText(MainActivity.this,"Can`t connect to web service",Toast.LENGTH_LONG)
+                        .show();
+            }
+
+            //Passing the raw XML from doInBackground to the XML parser
+            flowerList = FlowerJsonParser.parseFeed(result);
+            updateDisplay();
+
+
         }
 
         @Override
