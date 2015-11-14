@@ -14,6 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hanselandpetal.catalog.model.Flower;
+import com.hanselandpetal.catalog.parsers.FlowerXMLParser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,8 @@ public class MainActivity extends Activity {
 	TextView output;
     private ProgressBar pb;
     List<JokamTask> tasks;
+
+    List<Flower> flowerList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +78,14 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Appendsa message to the textview
-     * @param message
+     * Appends message to the textview
      */
-	protected void updateDisplay(String message) {
-		output.append(message + "\n");
+	protected void updateDisplay() {
+        if (flowerList != null){
+            for (Flower flower:flowerList) {
+                output.append(flower.getName() + "\n");
+            }
+        }
 	}
 
     /**
@@ -107,7 +115,7 @@ public class MainActivity extends Activity {
         //Before the task
         @Override
         protected void onPreExecute() {
-            updateDisplay("Before Task");
+//            updateDisplay("Before Task");
             //Visible before the task starts
             if (tasks.size() == 0)
             {
@@ -126,8 +134,11 @@ public class MainActivity extends Activity {
 
         //After the task
         @Override
-        protected void onPostExecute(String s) {
-            updateDisplay(s);
+        protected void onPostExecute(String result) {
+            //Passing the raw XML from doInBackground to the XML parser
+            flowerList = FlowerXMLParser.parseFeed(result);
+            
+            updateDisplay();
 
             //remove tasks from the list
             tasks.remove(this);
@@ -142,7 +153,7 @@ public class MainActivity extends Activity {
         @Override
         protected void onProgressUpdate(String... values) {
             //We get only one value from publish progress
-            updateDisplay(values[0]);
+//            updateDisplay(values[0]);
         }
     }
 
